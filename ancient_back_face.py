@@ -7,8 +7,10 @@ import pygame
 import math
 import ancient_config as config
 
+
 class AncientBackRenderer:
     """Handles all rendering for the back face of the ancient simulation."""
+
     def __init__(self, screen, fonts):
         self.screen = screen
         self.fonts = fonts
@@ -34,7 +36,7 @@ class AncientBackRenderer:
 
         # Draw the spiral path
         points = []
-        for i in range(total_months * 4): # 4 points per month for smoothness
+        for i in range(total_months * 4):  # 4 points per month for smoothness
             angle = math.radians(i * (360 / (months_per_loop * 4)) - 90)
             t = i / (total_months * 4)
             radius = dial_radius - (t * dial_radius * 0.95)
@@ -55,7 +57,7 @@ class AncientBackRenderer:
             pygame.draw.line(self.screen, config.DIAL_COLOR, start_point, end_point, 1)
 
             # Draw month labels (simplified)
-            if month_idx % 12 == 0: # Label every 12th month
+            if month_idx % 12 == 0:  # Label every 12th month
                 label_angle = math.radians(month_idx * (360 / months_per_loop) - 90)
                 label_radius = radius + 15
                 label_pos = self._get_spiral_point(self.UPPER_CENTER, label_angle, label_radius)
@@ -78,7 +80,6 @@ class AncientBackRenderer:
         pygame.draw.circle(self.screen, config.POINTER_COLOR, (int(end_point[0]), int(end_point[1])), 5)
         pygame.draw.circle(self.screen, config.DIAL_COLOR, self.UPPER_CENTER, 8)
 
-
     def draw_saros_dial(self, current_day):
         """Draws the lower Saros spiral dial for eclipse prediction."""
         dial_radius = self.HEIGHT / 4.5
@@ -87,7 +88,7 @@ class AncientBackRenderer:
 
         # Draw the spiral path (4 loops)
         points = []
-        for i in range(total_months * 4): # 4 points per month for smoothness
+        for i in range(total_months * 4):  # 4 points per month for smoothness
             angle = math.radians(i * (360 / (months_per_loop * 4)) - 90)
             t = i / (total_months * 4)
             radius = dial_radius - (t * dial_radius * 0.9)
@@ -111,7 +112,7 @@ class AncientBackRenderer:
             # Example eclipse glyphs
             if month_idx in [18, 41, 72, 110, 155, 200]:
                 glyph_pos = self._get_spiral_point(self.LOWER_CENTER, angle, radius + 10)
-                glyph = "Σ" if month_idx % 2 == 0 else "Η" # Sigma for Lunar, Eta for Solar
+                glyph = "Σ" if month_idx % 2 == 0 else "Η"  # Sigma for Lunar, Eta for Solar
                 text_surface = self.fonts['small'].render(glyph, True, (255, 100, 100))
                 text_rect = text_surface.get_rect(center=glyph_pos)
                 self.screen.blit(text_surface, text_rect)
@@ -129,11 +130,10 @@ class AncientBackRenderer:
         pygame.draw.circle(self.screen, config.POINTER_COLOR, (int(end_point[0]), int(end_point[1])), 4)
         pygame.draw.circle(self.screen, config.DIAL_COLOR, self.LOWER_CENTER, 8)
 
-
     def draw_games_dial(self, current_day):
         """Draws the small Games dial."""
         dial_radius = self.HEIGHT / 16
-        dial_center = (self.WIDTH * 0.85, self.HEIGHT * 0.25) # Positioned on the top right
+        dial_center = (self.WIDTH * 0.85, self.HEIGHT * 0.25)  # Positioned on the top right
 
         pygame.draw.circle(self.screen, config.DIAL_COLOR, dial_center, dial_radius, 1)
 
@@ -148,7 +148,7 @@ class AncientBackRenderer:
             pygame.draw.line(self.screen, config.DIAL_COLOR, dial_center, end_pos, 1)
 
             # Draw labels
-            game1, game2 = config.GAMES_INSCRIPTIONS[i+1]
+            game1, game2 = config.GAMES_INSCRIPTIONS[i + 1]
 
             label_angle = math.radians(i * 90)
             text_pos1 = self._get_spiral_point(dial_center, label_angle, dial_radius * 0.6)
@@ -162,11 +162,10 @@ class AncientBackRenderer:
         end_point = self._get_spiral_point(dial_center, pointer_angle, dial_radius)
         pygame.draw.line(self.screen, config.POINTER_COLOR, dial_center, end_point, 2)
 
-
     def draw_exeligmos_dial(self, current_day):
         """Draws the small Exeligmos dial."""
         dial_radius = self.HEIGHT / 16
-        dial_center = (self.WIDTH * 0.85, self.HEIGHT * 0.75) # Positioned on the bottom right
+        dial_center = (self.WIDTH * 0.85, self.HEIGHT * 0.75)  # Positioned on the bottom right
 
         pygame.draw.circle(self.screen, config.DIAL_COLOR, dial_center, dial_radius, 1)
 
@@ -194,7 +193,6 @@ class AncientBackRenderer:
         end_point = self._get_spiral_point(dial_center, pointer_angle, dial_radius)
         pygame.draw.line(self.screen, config.POINTER_COLOR, dial_center, end_point, 2)
 
-
     def draw_legend(self):
         """Draws a legend explaining the dials."""
         legend_x = 20
@@ -218,13 +216,13 @@ class AncientBackRenderer:
             self.screen.blit(title_surf, (legend_x, y_pos))
             self.screen.blit(desc_surf, (legend_x + title_surf.get_width() + 5, y_pos))
 
-
     def draw_ui(self, current_day, time_multiplier):
         day_text = f"Day: {int(current_day)}"
         day_surface = self.fonts['large'].render(day_text, True, config.TEXT_COLOR)
         self.screen.blit(day_surface, (10, 10))
 
-        controls = ["Controls:", "UP/DOWN: Change Speed", "SPACE: Pause/Resume", "TAB: Switch View", f"Speed: {time_multiplier:.2f}x"]
+        controls = ["Controls:", "UP/DOWN: Change Speed", "SPACE: Pause/Resume", "TAB: Switch View",
+                    f"Speed: {time_multiplier:.2f}x"]
         for i, line in enumerate(controls):
             text_surface = self.fonts['medium'].render(line, True, config.TEXT_COLOR)
             self.screen.blit(text_surface, (10, 50 + i * 25))
