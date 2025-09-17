@@ -1,6 +1,6 @@
-# Antikythera Mechanism Simulation
+# Digital Antikythera Mechanism Simulation
 
-*Part of the presentation for Cost Action CaLISTA General Meeting 2025*
+*Part of the presentation for a speech at Cost Action CaLISTA General Meeting 2025*
 
 This project presents two interactive simulations of the Antikythera mechanism, the world's oldest known analog computer. It offers both an "ancient" interpretation, reflecting the historical appearance of the device, and a "modern" interpretation with a contemporary user interface.
 
@@ -25,7 +25,7 @@ The Antikythera mechanism was used to predict astronomical positions and eclipse
 
 ### Front Face
 - **Zodiac Dial**: A fixed ring showing the twelve zodiac signs.
-- **Egyptian Calendar Dial**: A 354-day calendar ring that can be rotated to align with the zodiac.
+- **Lunar Calendar Dial**: A 354-day calendar ring that can be rotated to align with the zodiac.
 
 ### Back Face
 - **Metonic Dial**: A 19-year, 235-month calendar used to align solar years and lunar months. Represented as a 5-turn spiral in the ancient view.
@@ -36,9 +36,9 @@ The Antikythera mechanism was used to predict astronomical positions and eclipse
 ## How to Run
 
 ### Prerequisites
-You need to have Python and Pygame installed. If you don't have Pygame, you can install it via pip:
+You need to have Python, opencv (for recordings) and Pygame installed. If you don't have them or if the updates broke it, you can install it via pip:
 ```bash
-pip install pygame
+pip install -r requirements.txt
 ```
 
 ### Running the Simulations
@@ -65,14 +65,22 @@ python modern_simulation.py
 
 ## File Structure
 
-The project is organized into two main parts, with shared components:
+The project is organized into two main parts:
 
 - `ancient_simulation.py`: Main file for the ancient-style simulation.
 - `ancient_drawing.py`: Handles the rendering of the front face for the ancient simulation.
 - `ancient_back_face.py`: Handles the rendering of the back face for the ancient simulation.
 - `ancient_config.py`: Configuration data for the ancient simulation.
+- `ancient_recorder.py`: Utility for recording the ancient simulation.``
+  
 
 - `modern_simulation.py`: Main file for the modern-style simulation.
 - `modern_drawing.py`: Handles the rendering of the front face for the modern simulation.
 - `modern_back_face.py`: Handles the rendering of the back face for the modern simulation.
-- `modern_config.py`: Configuration data for the modern simulation.
+- `modern_config.py`: Configuration data for the modern simulation.  
+- `modern_recorder.py`: Utility for recording the modern simulation. 
+
+
+# Other Simulations
+More simulations of the Antikythera mechanism can be found on [github](https://github.com/topics/antikythera-mechanism).  
+Some of these have inspired this project.
